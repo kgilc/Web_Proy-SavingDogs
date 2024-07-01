@@ -1,17 +1,31 @@
 package com.ipn.mx.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
 import jakarta.persistence.*;
 
-@Entity
 @Data
-public class Propietario {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name="Propietario")
+
+public class Propietario implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idPropietario;
+
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario", nullable = false)
+    private Usuario Usuario;
 }

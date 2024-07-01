@@ -1,5 +1,6 @@
 package com.ipn.mx.controllers;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipn.mx.domain.Registro;
 import com.ipn.mx.domain.Usuario;
+import com.ipn.mx.services.RegistroService;
 import com.ipn.mx.services.UsuarioService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/apiUsuario")
-public class UsuarioController {
+@RequestMapping("/apiRegistro")
+public class RegistroController {
     @Autowired
-    UsuarioService service;
+    RegistroService service;
     
-    @GetMapping("/usuarios")
-    public List<Usuario> readAll(){
+    @GetMapping("/registro")
+    public List<Registro> readAll(){
         return service.findAll();
     }
     
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/registro/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             service.delete(id);
@@ -45,24 +48,20 @@ public class UsuarioController {
     }
     
     @GetMapping("/usuarios/{id}")
-    public Usuario read(@PathVariable Long id) {
+    public Registro read(@PathVariable Long id) {
         return service.findById(id);
     }
     
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/registro/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
-        Usuario c = service.findById(id);
-        c.setNombre(usuario.getNombre());
-        c.setTelefono(usuario.getTelefono());
-        c.setCorreo(usuario.getCorreo());
-        c.setUbicacion(usuario.getUbicacion());
+    public Registro update(@RequestBody Registro registro, @PathVariable Long id) {
+        Registro c = service.findById(id);
         return service.save(c);
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/registro")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario create(@RequestBody Usuario usuario) {
-        return service.save(usuario);
+    public Registro create(@RequestBody Registro registro) {
+        return service.save(registro);
     }
 }

@@ -17,22 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipn.mx.domain.Usuario;
-import com.ipn.mx.services.UsuarioService;
+import com.ipn.mx.domain.PerroEncontrado;
+import com.ipn.mx.services.PerroEncontradoService;
+
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/apiUsuario")
-public class UsuarioController {
+@RequestMapping("/apiPerroencontrado")
+public class PerroEncontradoController {
     @Autowired
-    UsuarioService service;
+    PerroEncontradoService service;
     
-    @GetMapping("/usuarios")
-    public List<Usuario> readAll(){
+    @GetMapping("/perroencontrado")
+    public List<PerroEncontrado> readAll(){
         return service.findAll();
     }
     
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/perroencontrado/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             service.delete(id);
@@ -44,25 +45,21 @@ public class UsuarioController {
         }
     }
     
-    @GetMapping("/usuarios/{id}")
-    public Usuario read(@PathVariable Long id) {
+    @GetMapping("/perroencontrado/{id}")
+    public PerroEncontrado read(@PathVariable Long id) {
         return service.findById(id);
     }
     
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/perroencontrado/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
-        Usuario c = service.findById(id);
-        c.setNombre(usuario.getNombre());
-        c.setTelefono(usuario.getTelefono());
-        c.setCorreo(usuario.getCorreo());
-        c.setUbicacion(usuario.getUbicacion());
+    public PerroEncontrado update(@RequestBody PerroEncontrado perroencontrado, @PathVariable Long id) {
+        PerroEncontrado c = service.findById(id);
         return service.save(c);
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/perroencontrado")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario create(@RequestBody Usuario usuario) {
-        return service.save(usuario);
+    public PerroEncontrado create(@RequestBody PerroEncontrado encontrador) {
+        return service.save(encontrador);
     }
 }

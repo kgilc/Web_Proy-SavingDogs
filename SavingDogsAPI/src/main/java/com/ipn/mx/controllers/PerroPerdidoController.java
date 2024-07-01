@@ -17,22 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipn.mx.domain.Usuario;
-import com.ipn.mx.services.UsuarioService;
+import com.ipn.mx.domain.perroPerdido;
+import com.ipn.mx.services.PerroPerdidoService;
+
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/apiUsuario")
-public class UsuarioController {
+@RequestMapping("/apiPerroperdido")
+public class PerroPerdidoController {
     @Autowired
-    UsuarioService service;
+    PerroPerdidoService service;
     
-    @GetMapping("/usuarios")
-    public List<Usuario> readAll(){
+    @GetMapping("/perroperdido")
+    public List<perroPerdido> readAll(){
         return service.findAll();
     }
     
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/perroperdido/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             service.delete(id);
@@ -44,25 +45,21 @@ public class UsuarioController {
         }
     }
     
-    @GetMapping("/usuarios/{id}")
-    public Usuario read(@PathVariable Long id) {
+    @GetMapping("/perroperdido/{id}")
+    public perroPerdido read(@PathVariable Long id) {
         return service.findById(id);
     }
     
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/perroperdido/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
-        Usuario c = service.findById(id);
-        c.setNombre(usuario.getNombre());
-        c.setTelefono(usuario.getTelefono());
-        c.setCorreo(usuario.getCorreo());
-        c.setUbicacion(usuario.getUbicacion());
+    public perroPerdido update(@RequestBody perroPerdido perroperdido, @PathVariable Long id) {
+        perroPerdido c = service.findById(id);
         return service.save(c);
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/perroperdido")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario create(@RequestBody Usuario usuario) {
-        return service.save(usuario);
+    public perroPerdido create(@RequestBody perroPerdido encontrador) {
+        return service.save(encontrador);
     }
 }

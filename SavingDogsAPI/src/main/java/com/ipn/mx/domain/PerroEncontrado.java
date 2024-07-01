@@ -18,13 +18,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table (name = "perro_perdido")
-public class perroPerdido {
+@Table (name = "perro_encontrado")
+public class PerroEncontrado {
 	private static final long serialVersionUID = 1L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_perdido;
+    private Long id_encontrado;
 	@Column (name = "raza", length = 100, nullable = false)
     private String raza;
 	@Column (name = "color", length = 100, nullable = false)
@@ -37,7 +37,7 @@ public class perroPerdido {
     @JoinColumn(name = "id_registro", referencedColumnName = "id_registro", nullable = false)
     private Registro registro;
 	@ManyToOne
-    @JoinColumn(name = "id_propietario", referencedColumnName = "idPropietario", nullable = false)
-    private Propietario propietario;
+    @JoinColumn(name = "id_encontrador", referencedColumnName = "idEncontrador", nullable = false)
+    private Encontrador encontrador;
 }
 
