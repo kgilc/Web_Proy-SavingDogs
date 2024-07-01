@@ -17,22 +17,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipn.mx.domain.Usuario;
-import com.ipn.mx.services.UsuarioService;
+import com.ipn.mx.domain.Encontrador;
+import com.ipn.mx.services.EncontradorService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/apiUsuario")
-public class UsuarioController {
+@RequestMapping("/apiencontrador")
+public class EncontradorController {
     @Autowired
-    UsuarioService service;
+    EncontradorService service;
     
-    @GetMapping("/usuarios")
-    public List<Usuario> readAll(){
+    @GetMapping("/encontrador")
+    public List<Encontrador> readAll(){
         return service.findAll();
     }
     
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/encontrador/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             service.delete(id);
@@ -44,25 +44,21 @@ public class UsuarioController {
         }
     }
     
-    @GetMapping("/usuarios/{id}")
-    public Usuario read(@PathVariable Long id) {
+    @GetMapping("/encontrador/{id}")
+    public Encontrador read(@PathVariable Long id) {
         return service.findById(id);
     }
     
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/encontrador/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
-        Usuario c = service.findById(id);
-        c.setNombre(usuario.getNombre());
-        c.setTelefono(usuario.getTelefono());
-        c.setCorreo(usuario.getCorreo());
-        c.setUbicacion(usuario.getUbicacion());
+    public Encontrador update(@RequestBody Encontrador encontrador, @PathVariable Long id) {
+        Encontrador c = service.findById(id);
         return service.save(c);
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/encontrador")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario create(@RequestBody Usuario usuario) {
-        return service.save(usuario);
+    public Encontrador create(@RequestBody Encontrador encontrador) {
+        return service.save(encontrador);
     }
 }
