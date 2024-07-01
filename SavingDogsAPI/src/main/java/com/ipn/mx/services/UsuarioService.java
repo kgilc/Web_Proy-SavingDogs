@@ -10,4 +10,6 @@ public interface UsuarioService {
 	public Usuario findById(Long id);
 	public Usuario save (Usuario tarea);
 	public void delete(Long id);
+    Usuario login(String email, String password);
+
 }

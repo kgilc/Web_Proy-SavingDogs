@@ -36,5 +36,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		repository.deleteById(id);
 	}
 	
+	@Override
+    public Usuario login(String email, String password) {
+        return repository.findByCorreoAndPassword(email, password);
+    }
 
 }

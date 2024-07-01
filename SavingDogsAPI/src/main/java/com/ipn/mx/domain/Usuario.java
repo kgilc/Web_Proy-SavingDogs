@@ -30,4 +30,6 @@ public class Usuario implements Serializable {
     private String telefono;
 	@Column (name = "ubicacion", length = 100, nullable = false)
     private String ubicacion;
+	@Column (name = "password", length = 100, nullable = false)
+    private String password;
 }
