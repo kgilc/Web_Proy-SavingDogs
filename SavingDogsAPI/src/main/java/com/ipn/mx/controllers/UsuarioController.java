@@ -79,10 +79,17 @@ public class UsuarioController {
         return service.save(c);
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/usuarios")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario create(@RequestBody Usuario usuario) {
-        return service.save(usuario);
+    public ResponseEntity<Object> create(@RequestBody Usuario usuario) {
+        try {
+            Usuario nuevoUsuario = service.save(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(Map.of("message", "Usuario guardado correctamente", "result", true, "usuario", nuevoUsuario));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", e.getMessage(), "result", false));
+        }
     }
 }
+

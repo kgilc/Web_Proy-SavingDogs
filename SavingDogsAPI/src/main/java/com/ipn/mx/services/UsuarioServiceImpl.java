@@ -40,5 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     public Usuario login(String email, String password) {
         return repository.findByCorreoAndPassword(email, password);
     }
+	
+	
 
 }
