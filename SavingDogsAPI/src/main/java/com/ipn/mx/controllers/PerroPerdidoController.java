@@ -17,38 +17,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipn.mx.domain.Encontrador;
-import com.ipn.mx.services.EncontradorService;
+import com.ipn.mx.domain.perroPerdido;
+import com.ipn.mx.services.PerroPerdidoService;
+
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/apiencontrador")
-public class EncontradorController {
+@RequestMapping("/apiPerroperdido")
+public class PerroPerdidoController {
     @Autowired
-    EncontradorService service;
+    PerroPerdidoService service;
     
-    @GetMapping("/encontrador")
-    public List<Encontrador> readAll(){
+    @GetMapping("/perroperdido")
+    public List<perroPerdido> readAll(){
         return service.findAll();
     }
     
+    @DeleteMapping("/perroperdido/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("No se puede eliminar el usuario");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor.");
+        }
+    }
     
-    
-    @GetMapping("/encontrador/{id}")
-    public Encontrador read(@PathVariable Long id) {
+    @GetMapping("/perroperdido/{id}")
+    public perroPerdido read(@PathVariable Long id) {
         return service.findById(id);
     }
     
-    @PutMapping("/encontrador/{id}")
+    @PutMapping("/perroperdido/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Encontrador update(@RequestBody Encontrador encontrador, @PathVariable Long id) {
-        Encontrador c = service.findById(id);
+    public perroPerdido update(@RequestBody perroPerdido perroperdido, @PathVariable Long id) {
+        perroPerdido c = service.findById(id);
         return service.save(c);
     }
 
-    @PostMapping("/encontrador")
+    @PostMapping("/perroperdido")
     @ResponseStatus(HttpStatus.CREATED)
-    public Encontrador create(@RequestBody Encontrador encontrador) {
+    public perroPerdido create(@RequestBody perroPerdido encontrador) {
         return service.save(encontrador);
     }
 }
