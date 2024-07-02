@@ -7,34 +7,60 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipn.mx.domain.PerroEncontrado;
+import com.ipn.mx.domain.perroPerdido;
+import com.ipn.mx.domain.Usuario;
+import com.ipn.mx.domain.perroPerdido;
 import com.ipn.mx.domain.repository.PerroEncontradoRepository;
+import com.ipn.mx.domain.repository.PerroPerdidoRepository;
 
 @Service
-
 public class PerroEncontradoServiceImpl implements PerroEncontradoService {
-	
-	@Autowired
-	PerroEncontradoRepository repository;
-	
-	@Override
-	@Transactional(readOnly = false)
-	public List<PerroEncontrado> findAll() {
-		return (List<PerroEncontrado>) repository.findAll();
-	}
+    
+    @Autowired
+    PerroEncontradoRepository encontradoRepository;
 
-	@Override
-	public PerroEncontrado findById(Long id) {
-		return repository.findById(id).orElse(null);
-	}
+    @Autowired
+    PerroPerdidoRepository perdidoRepository;
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<PerroEncontrado> findAll() {
+        return (List<PerroEncontrado>) encontradoRepository.findAll();
+    }
 
-	@Override
-	public PerroEncontrado save(PerroEncontrado perroencontrado) {
-		return  repository.save(perroencontrado);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public PerroEncontrado findById(Long id) {
+        return encontradoRepository.findById(id).orElse(null);
+    }
 
-	@Override
-	public void delete(Long id) {
-		repository.deleteById(id);
-	}
+    @Override
+    @Transactional
+    public PerroEncontrado save(PerroEncontrado perroencontrado) {
+        return  encontradoRepository.save(perroencontrado);
+    }
 
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        encontradoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public PerroEncontrado registroEncontrado(PerroEncontrado perroencontrado) {
+        PerroEncontrado savedPerro = encontradoRepository.save(perroencontrado);
+
+        List<perroPerdido> perrosPerdidos = perdidoRepository.findByColorAndRaza(perroencontrado.getColor(), perroencontrado.getRaza());
+
+        for (perroPerdido perdido : perrosPerdidos) {
+            Usuario contacto = new Usuario();
+            contacto.setNombre(perroencontrado.getNombre() + " " + perroencontrado.getAp() + " " + perroencontrado.getAm());
+            contacto.setCorreo(perroencontrado.getCorreo());
+        }
+
+        return savedPerro;
+    }
+
+    
 }

@@ -1,15 +1,13 @@
 package com.ipn.mx.services;
 
 import java.util.List;
-
 import com.ipn.mx.domain.PerroEncontrado;
 
 public interface PerroEncontradoService {
-	
-	public List<PerroEncontrado> findAll();
-	public PerroEncontrado findById(Long id);
-	public PerroEncontrado save (PerroEncontrado tarea);
-	public void delete(Long id);
-	
-
+    List<PerroEncontrado> findAll();
+    PerroEncontrado findById(Long id);
+    PerroEncontrado save(PerroEncontrado perroencontrado);
+    void delete(Long id);
+    PerroEncontrado registroEncontrado(PerroEncontrado perroencontrado);
+    //PerroEncontrado getEncontrado(Long id);
 }

@@ -1,6 +1,7 @@
 package com.ipn.mx.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipn.mx.domain.PerroEncontrado;
 import com.ipn.mx.domain.perroPerdido;
 import com.ipn.mx.services.PerroPerdidoService;
 
@@ -61,5 +63,16 @@ public class PerroPerdidoController {
     @ResponseStatus(HttpStatus.CREATED)
     public perroPerdido create(@RequestBody perroPerdido encontrador) {
         return service.save(encontrador);
+    }
+    
+    @PostMapping("/registroPerdido")
+    public ResponseEntity<?> registroPerdido(@RequestBody perroPerdido perroperdido) {
+        try {
+            perroPerdido savedPerro = service.registroPerdido(perroperdido);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(Map.of("message", "Usuario guardado correctamente", "result", true));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
