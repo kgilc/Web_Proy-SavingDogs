@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipn.mx.domain.Encontrador;
+import com.ipn.mx.domain.PerroEncontrado;
+import com.ipn.mx.domain.Usuario;
 import com.ipn.mx.domain.repository.EncontradorRepository;
 
 @Service
@@ -36,5 +38,11 @@ public class EncontradorServiceImpl implements EncontradorService {
 		repository.deleteById(id);
 	}
 
+	@Override
+    public List<Encontrador> findBycorreoEncontrado (String correoEncontrado) {
+        return repository.findBycorreoEncontrado(correoEncontrado);
+    }
+	
+	
 
 }

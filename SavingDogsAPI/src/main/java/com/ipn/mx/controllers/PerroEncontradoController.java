@@ -10,7 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ipn.mx.domain.PerroEncontrado;
+import com.ipn.mx.domain.Propietario;
+import com.ipn.mx.domain.perroPerdido;
+import com.ipn.mx.domain.repository.PerroPerdidoRepository;
+import com.ipn.mx.domain.repository.PropietarioRepository;
 import com.ipn.mx.services.PerroEncontradoService;
+import com.ipn.mx.services.PerroPerdidoService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -19,6 +24,17 @@ public class PerroEncontradoController {
 
     @Autowired
     PerroEncontradoService service;
+    
+    @Autowired
+    PerroPerdidoService perdidoservice;
+    
+    @Autowired
+    private PerroPerdidoRepository perdidoRepository;
+    
+    @Autowired
+    private PropietarioRepository contactarRepository;
+
+
     
     @GetMapping("/perroencontrado")
     public List<PerroEncontrado> readAll(){
@@ -65,6 +81,7 @@ public class PerroEncontradoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
 
     
 }

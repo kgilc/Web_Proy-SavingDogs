@@ -7,11 +7,15 @@ import com.ipn.mx.domain.perroPerdido;
 
 public interface PerroPerdidoService {
 	
-	public List<perroPerdido> findAll();
-	public perroPerdido findById(Long id);
-	public perroPerdido save (perroPerdido tarea);
-	public void delete(Long id);
-    public perroPerdido registroPerdido(perroPerdido perroperdido);
+	List<perroPerdido> findAll();
+	perroPerdido findById(Long id);
+	perroPerdido save (perroPerdido tarea);
+	void delete(Long id);
+    perroPerdido registroPerdido(perroPerdido perroperdido);
+    List<perroPerdido> findByCorreo (String correo);
+    //List<perroPerdido> findBycolorAndraza (String color, String raza);
+
+
 
 	
 

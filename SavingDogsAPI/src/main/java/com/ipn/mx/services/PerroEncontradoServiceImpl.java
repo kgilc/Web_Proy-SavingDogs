@@ -51,7 +51,7 @@ public class PerroEncontradoServiceImpl implements PerroEncontradoService {
     public PerroEncontrado registroEncontrado(PerroEncontrado perroencontrado) {
         PerroEncontrado savedPerro = encontradoRepository.save(perroencontrado);
 
-        List<perroPerdido> perrosPerdidos = perdidoRepository.findByColorAndRaza(perroencontrado.getColor(), perroencontrado.getRaza());
+        List<perroPerdido> perrosPerdidos = perdidoRepository.findBycolorAndRaza(perroencontrado.getColor(), perroencontrado.getRaza());
 
         for (perroPerdido perdido : perrosPerdidos) {
             Usuario contacto = new Usuario();
@@ -60,6 +60,11 @@ public class PerroEncontradoServiceImpl implements PerroEncontradoService {
         }
 
         return savedPerro;
+    }
+    
+    @Override
+    public List<PerroEncontrado> findByCorreo (String correo) {
+        return encontradoRepository.findByCorreo(correo);
     }
 
     

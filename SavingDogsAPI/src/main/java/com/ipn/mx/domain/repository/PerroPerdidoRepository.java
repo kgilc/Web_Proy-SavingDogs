@@ -9,7 +9,9 @@ import com.ipn.mx.domain.perroPerdido;
 
 public interface PerroPerdidoRepository extends CrudRepository<perroPerdido,Long> {
 	
-    List<perroPerdido> findByColorAndRaza(String color, String raza);
+    List<perroPerdido> findBycolorAndRaza(String color, String raza);
+    List<perroPerdido> findByCorreo(String correo);
+
 
 
 }

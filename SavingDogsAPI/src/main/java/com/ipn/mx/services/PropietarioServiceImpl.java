@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ipn.mx.domain.Encontrador;
 import com.ipn.mx.domain.Propietario;
 import com.ipn.mx.domain.repository.PropietarioRepository;
 
@@ -35,5 +36,10 @@ public class PropietarioServiceImpl implements PropietarioService{
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
+	@Override
+    public List<Propietario> findBycorreoPerdido (String correoPerdido) {
+        return repository.findBycorreoPerdido (correoPerdido);
+    }
 
 }

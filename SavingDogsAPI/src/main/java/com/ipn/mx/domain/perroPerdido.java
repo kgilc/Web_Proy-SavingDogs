@@ -66,6 +66,6 @@ public class perroPerdido {
     private String cp;
 
     @Column(name = "foto", length = 1200, nullable = false)
-    private String foto;
+    private String fotoFilePath;
 }
 

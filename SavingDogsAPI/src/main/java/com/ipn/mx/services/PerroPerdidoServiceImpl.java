@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ipn.mx.domain.Encontrador;
 import com.ipn.mx.domain.PerroEncontrado;
 import com.ipn.mx.domain.Usuario;
 import com.ipn.mx.domain.perroPerdido;
@@ -51,12 +52,21 @@ public class PerroPerdidoServiceImpl implements PerroPerdidoService {
         List<PerroEncontrado> perrosEncontrados = encontradoRepository.findByColorAndRaza(perroperdido.getColor(), perroperdido.getRaza());
 
         for (PerroEncontrado encontrado : perrosEncontrados) {
-            Usuario contacto = new Usuario();
+            Encontrador contacto = new Encontrador();
             contacto.setNombre(perroperdido.getNombre() + " " + perroperdido.getAp() + " " + perroperdido.getAm());
-            contacto.setCorreo(perroperdido.getCorreo());
+            contacto.setCorreoPerdido(perroperdido.getCorreo());
+            contacto.setCorreoEncontrado(encontrado.getCorreo());
         }
 
         return savedPerro;
     }
+    
+    @Override
+    public List<perroPerdido> findByCorreo (String correo) {
+        return perdidoRepository.findByCorreo(correo);
+    }
+
+	
+
 
 }
